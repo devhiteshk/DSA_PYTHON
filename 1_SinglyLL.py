@@ -121,7 +121,7 @@ SingLL.insertSLL(3,3)
 # SingLL.TraverseSLL()
 print([node.value for node in SingLL])
 SingLL.deleteNode(3)
-SinglyLL.deleteEntireLL()
+SingLL.deleteEntireLL()
 print([node.value for node in SingLL])
 
 # print(SingLL.SearchSLL(100))
