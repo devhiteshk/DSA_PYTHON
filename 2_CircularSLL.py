@@ -15,7 +15,7 @@ class CircularSinglyLinkedList:
             node = node.next
             if node == self.tail.next:
                 break
-            
+
 
     #  Creation of circular singly linked list
     def createCSLL(self, nodeValue):
@@ -116,7 +116,6 @@ class CircularSinglyLinkedList:
         self.head = None
         self.tail.next = None
         self.tail = None
-
 
 
 circularSLL = CircularSinglyLinkedList()
