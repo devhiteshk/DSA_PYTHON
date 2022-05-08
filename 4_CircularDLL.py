@@ -4,42 +4,46 @@ class Node:
         self.next = None
         self.prev = None
 
-class DoublyLinkedList:
+class CircularDoublyLinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
 
+    
     def __iter__(self):
         node = self.head
         while node:
             yield node
             node = node.next
+            if node == self.tail.next:
+                break
     
-    #  Creation of Doubly Linked List
-    def createDLL(self, nodeValue):
-        node = Node(nodeValue)
-        node.prev = None
-        node.next = None
-        self.head = node
-        self.tail = node
-        return "The DLL is created Successfully"
-    
-    
-    
-    #  Insertion Method in Doubly Linked List
-    def insertNode(self, nodeValue, location):
+    #  Creation of Circular Doubly Linked List
+    def createCDLL(self, nodeValue):
+        newNode = Node(nodeValue)
+        self.head = newNode
+        self.tail = newNode
+        newNode.prev = newNode
+        newNode.next = newNode
+        return "The CDLL is created successfully"
+
+
+    # Insertion Method in Circular Doubly Linked List
+    def insertCDLL(self, value, location):
         if self.head is None:
-            print("The node cannot be inserted")
+            return "The CDLL does not exist"
         else:
-            newNode = Node(nodeValue)
+            newNode = Node(value)
             if location == 0:
-                newNode.prev = None
                 newNode.next = self.head
+                newNode.prev = self.tail
                 self.head.prev = newNode
                 self.head = newNode
+                self.tail.next = newNode
             elif location == 1:
-                newNode.next = None
+                newNode.next = self.head
                 newNode.prev = self.tail
+                self.head.prev = newNode
                 self.tail.next = newNode
                 self.tail = newNode
             else:
@@ -52,58 +56,70 @@ class DoublyLinkedList:
                 newNode.prev = tempNode
                 newNode.next.prev = newNode
                 tempNode.next = newNode
-    
-    #  Traversal Method in Doubly Linked List
-    def traverseDLL(self):
+            return "The node has been successfully inserted"
+
+    # Traversal of Circular Doubly Linked List
+    def traversalCDLL(self):
         if self.head is None:
-            print("There is not any element to traverse")
+            print("There is not any node for traversal")
         else:
             tempNode = self.head
             while tempNode:
                 print(tempNode.value)
+                if tempNode == self.tail:
+                    break
                 tempNode = tempNode.next
-    
-    #  Reverse Traversal Method in Doubly Linked List
-    def reverseTraversalDLL(self):
+
+    # Reverse traversal of Circular Doubly Linked List
+    def reverseTraversalCDLL(self):
         if self.head is None:
-            print("There is not any element to traverse")
+            print("There is not any node for reverse traversal")
         else:
             tempNode = self.tail
             while tempNode:
                 print(tempNode.value)
+                if tempNode == self.head:
+                    break
                 tempNode = tempNode.prev
-
-    # Search Method in Doubly Linked List
-    def searchDLL(self, nodeValue):
+    
+    # Search Circular Doubly Linked List
+    def searchCDLL(self, nodeValue):
         if self.head is None:
-            return "There is not any element in the list"
+            return "There is not any node in CDLL"
         else:
             tempNode = self.head
             while tempNode:
                 if tempNode.value == nodeValue:
                     return tempNode.value
+                if tempNode == self.tail:
+                    return "The value does not exist in CDLL"
                 tempNode = tempNode.next
-            return "The node does not exist in this list"
-
-    # Delete a node from Doubly Linked List
-    def deleteNode(self,location):
+    
+    # Delete a node from Circular Doubly Linked List
+    def deleteNode(self, location):
         if self.head is None:
-            print("There is not any element in DLL")
+            print("There is not any node to delete")
         else:
             if location == 0:
                 if self.head == self.tail:
+                    self.head.prev = None
+                    self.head.next = None
                     self.head = None
                     self.tail = None
                 else:
                     self.head = self.head.next
-                    self.head.prev = None
+                    self.head.prev = self.tail
+                    self.tail.next = self.head
             elif location == 1:
                 if self.head == self.tail:
+                    self.head.prev = None
+                    self.head.next = None
                     self.head = None
                     self.tail = None
                 else:
                     self.tail = self.tail.prev
-                    self.tail.next = None
+                    self.tail.next = self.head
+                    self.head.prev = self.tail
             else:
                 curNode = self.head
                 index = 0
@@ -113,26 +129,28 @@ class DoublyLinkedList:
                 curNode.next = curNode.next.next
                 curNode.next.prev = curNode
             print("The node has been successfully deleted")
-
-    # Delete entire Doubly Linked List
-    def deleteDLL(self):
+    
+    # Delete entire Circular Doubly Linked List
+    def deleteCDLL(self):
         if self.head is None:
-            print("There is not any node in DLL")
+            print("There is not any element to delete")
         else:
+            self.tail.next = None
             tempNode = self.head
             while tempNode:
                 tempNode.prev = None
                 tempNode = tempNode.next
             self.head = None
             self.tail = None
-            print("The DLL has been successfully deleted")
+            print("The CDLL has been successfully deleted")
     
 
-doubyLL = DoublyLinkedList()
-doubyLL.createDLL(5)
-doubyLL.insertNode(0,0)
-doubyLL.insertNode(2,1)
-doubyLL.insertNode(6,2)
-print([node.value for node in doubyLL]) 
-# doubyLL.deleteDLL()
-print([node.value for node in doubyLL])
+
+circularDLL = CircularDoublyLinkedList()
+circularDLL.createCDLL(5)
+circularDLL.insertCDLL(0,0)
+circularDLL.insertCDLL(1,1)
+circularDLL.insertCDLL(2,2)
+print([node.value for node in circularDLL])
+circularDLL.deleteCDLL()
+print([node.value for node in circularDLL])
