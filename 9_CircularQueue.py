@@ -52,7 +52,18 @@ class Queue:
                 self.start += 1
             self.items[start] = None
             return firstElement
-         
+
+    def peek(self):
+        if self.isEmpty():
+            return "Empty Queue"
+        else:
+            return self.items[self.start]
+
+    def delete(self):
+        self.items = self.maxSize*[None]
+        self.top = -1
+        self.start = -1
+                     
 
 myQueue = Queue(3)
 # print(myQueue.isEmpty())
@@ -61,6 +72,7 @@ myQueue.enqueue(2)
 myQueue.enqueue(3)
 print(myQueue.isFull())
 print(myQueue.dequeue())
+myQueue.delete()
 print(myQueue)
 
 
