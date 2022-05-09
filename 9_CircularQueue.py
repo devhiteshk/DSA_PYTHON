@@ -1,4 +1,3 @@
-
 class Queue:
     def __init__(self, maxSize):
         self.items = maxSize*[None]
@@ -38,8 +37,31 @@ class Queue:
             self.items[self.top] = value
             return "Item addded to Queue"
 
+    def dequeue(self):
+        if self.isEmpty():
+            return "full"
+        else:
+            firstElement = self.items[self.start]
+            start = self.start
+            if self.start == self.top:
+                self.start = -1
+                self.top = -1
+            elif self.start + 1 == self.maxSize:
+                self.start = 0
+            else:
+                self.start += 1
+            self.items[start] = None
+            return firstElement
+         
+
 myQueue = Queue(3)
-print(myQueue.isEmpty())
+# print(myQueue.isEmpty())
+myQueue.enqueue(1)
+myQueue.enqueue(2)
+myQueue.enqueue(3)
+print(myQueue.isFull())
+print(myQueue.dequeue())
+print(myQueue)
 
 
 
