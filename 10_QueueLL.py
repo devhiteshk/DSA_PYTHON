@@ -59,6 +59,10 @@ class Queue:
         else:
             return self.LL.head
 
+    def delete(self):
+        self.LL.head = None
+        self.LL.tail= None
+
 myQueue = Queue()
 myQueue.enqueue(5)
 myQueue.enqueue(3)
