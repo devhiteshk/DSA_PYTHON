@@ -54,7 +54,6 @@ class Queue:
             return temp
 
 
-
 class BSTNode:
     def __init__(self, data):
         self.data = data
@@ -112,6 +111,58 @@ def levelOrderTraversal(rootNode):
             if root.value.rightChild is not None:
                 myQueue.enqueue(root.value.rightChild)
 
+
+def searchNode(rootNode, nodeValue):
+    if rootNode.data == nodeValue:
+        return "value found"
+    elif nodeValue < rootNode.data:
+        if rootNode.leftChild.data == nodeValue:
+            print("value found")
+        else:
+            searchNode(rootNode.leftChild, nodeValue)
+    else:
+        if rootNode.rightChild.data == nodeValue:
+            print("value found")
+        else:
+            searchNode(rootNode.rightChild, nodeValue)
+    return "not Found"
+
+def minimumValueNode(bstNode):
+    current = bstNode
+    while (current.leftChild is not None):    # because in BST leftChild is has smaller value than rootNode
+        current = current.leftChild
+    return current
+
+def deleteNode(rootNode, nodeValue):
+    if rootNode is None:
+        return rootNode
+    if nodeValue < rootNode.data:
+        rootNode.leftChild = deleteNode(rootNode.leftChild, nodeValue)
+    elif nodeValue > rootNode.data:
+        rootNode.rightChild = deleteNode(rootNode.rigthChild, nodeValue)
+    else:
+        if rootNode.leftChild is None:
+            temp = rootNode.rightChild
+            rootNode = None
+            return temp
+
+        if rootNode.rightChild is None:
+            temp = rootNode.leftChild
+            rootNode = None
+            return temp
+
+        temp = minimumValueNode(rootNode.rightChild)
+        rootNode.data = temp.data
+        rootNode.rightChild = deleteNode(rootNode.rightChild, temp.data)
+    return rootNode
+
+def deleteBST(rootNode):
+    rootNode.data = None
+    rootNode.leftChild = None
+    rootNode.rightChild = None
+    return "BST Deleted Successfully"
+
+    
 newBST = BSTNode(None) 
 insertNode(newBST, 70)
 insertNode(newBST, 60)
