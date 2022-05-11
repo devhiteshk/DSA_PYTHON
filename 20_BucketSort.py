@@ -10,7 +10,7 @@ def insertionSort(arr):
         arr[j+1] = key
     return arr
 
-    
+
 def bucketSort(myList):
     numofbuckets = round(math.sqrt(len(myList)))
     maxValue = max(myList)
