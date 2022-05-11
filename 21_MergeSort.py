@@ -1,8 +1,4 @@
 # helper function
-from re import L
-from turtle import left
-
-
 def merge(Myarr, l, m, r):
     n1 = m - l + 1    # l -> first index m -> middle index  r -> last index
     n2 = r - m 
